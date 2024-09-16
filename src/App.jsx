@@ -10,7 +10,8 @@ function App() {
   const [error, setError] = useState({
     amountError : false,
     perPersonError : false,
-    errorText : '',
+    amountErrorText : '',
+    perPersonErrorText : '',
   });
 
   const inputRef = {
@@ -32,7 +33,7 @@ function App() {
 
     if ((inputRef.bill.current.value.trim() === '')  || (inputRef.bill.current.value.trim() == 0)) {
       errors.amountError = true;
-      errors.errorText = "Can't be zero";
+      errors.amountErrorText = "Can't be zero";
     } else if ((inputRef.bill.current.value.trim() <= 0)) {
       errors.amountError = true;
       errors.amountErrorText = "Common 🤣, can't be negative";
@@ -40,7 +41,7 @@ function App() {
 
     if ((inputRef.people.current.value.trim() === '') || (inputRef.people.current.value.trim() == 0)) {
       errors.perPersonError = true;
-      errors.errorText = "Can't be zero";
+      errors.perPersonErrorText = "Can't be zero";
     } else if ((inputRef.people.current.value.trim() <= 0)) {
       errors.perPersonError = true;
       errors.perPersonErrorText = "Negative?? 😅 Common";
