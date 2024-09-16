@@ -132,14 +132,9 @@ input[type="number"] {
   position: absolute;
   right: 0;
   top: 0;
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   font-weight: 600;
   color: hsl(0, 100%, 75%);
-  /* display: none; */
-}
-
-.first-form.error p,
-.third-form.error p {
   display: block;
 }
 
@@ -288,12 +283,17 @@ input[type="number"] {
       line-height: 35px;
   }
 
+  main {
+    height: 100%;
+  }
+
   .container {
       width: 100%;
       height: 85%;
       max-height: 700px;
       flex-direction: column;
       border-radius: 25px 25px 0px 0px;
+      margin-top: 20px;
   }
 
   .calc {
@@ -325,6 +325,10 @@ input[type="number"] {
   .third-form {
       margin-top: 8px;
       margin-bottom: 13px;
+  }
+
+  .third-form {
+    margin-bottom: 10px;
   }
 
   .first-form img,
