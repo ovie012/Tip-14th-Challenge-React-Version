@@ -359,8 +359,9 @@ input[type="number"] {
 
   .total {
       width: 85%;
-      min-height: 300px;
+      min-height: 250px;
       height: 35%;
+      margin-bottom: 20px;
   }
 
   .total section {

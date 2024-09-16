@@ -3,6 +3,7 @@ import './App.css'
 
 function App() {
   const [selectedTip, setSelectedTip] = useState();
+  const [resetColor, setResetColor] =  useState(true);
   const [tip, setTip] = useState({
     amount : '0.00',
     perPerson : '0.00',
@@ -23,6 +24,7 @@ function App() {
   const tipped = (percentage) => {
     // e.preventDefault();
     setSelectedTip(percentage)
+    setResetColor(false);
 
     let errors = {
       amountError : false,
@@ -30,6 +32,10 @@ function App() {
       amountErrorText : '',
       perPersonErrorText : '',
     }
+
+    if (percentage !== inputRef.customTip.current.value) {
+      inputRef.customTip.current.value = '';
+    };
 
     if ((inputRef.bill.current.value.trim() === '')  || (inputRef.bill.current.value.trim() == 0)) {
       errors.amountError = true;
@@ -73,9 +79,11 @@ function App() {
       const totalBillPerPerson = Number((billPerPerson + tipPerPerson).toFixed(2));
 
       setTip({ amount : tipPerPerson, perPerson : totalBillPerPerson })
+      
   };
 
   const reset = () => {
+    setResetColor(true);
     setSelectedTip(null);
     setTip({ amount : '0.00', perPerson : '0.00' });
     setError({ amountError : false, perPersonError : false, amountErrorText : '', perPersonErrorText : ''})
@@ -94,7 +102,7 @@ function App() {
                   <label htmlFor="bill">Bill</label>
                   {error.amountError && <p>{error.amountErrorText}</p>}
                   <img src="/icon-dollar.svg" />
-                  <input ref={inputRef.bill} type="number" id="bill" name="bill" placeholder='0' />
+                  <input onInput={() => setResetColor(false)} ref={inputRef.bill} type="number" id="bill" name="bill" placeholder='0' />
               </form>
               <section className="second-form">
                   <h2>Select Tip %</h2>
@@ -109,7 +117,7 @@ function App() {
                   <label htmlFor="People">Number of People</label>
                   {error.perPersonError && <p>{error.perPersonErrorText}</p>}
                   <img src="/icon-person.svg" />
-                  <input ref={inputRef.people} type="number" id="people" name="people" placeholder='0' />
+                  <input onInput={() => setResetColor(false)} ref={inputRef.people} type="number" id="people" name="people" placeholder='0' />
               </form>
           </div>
           <div className="total">
@@ -127,7 +135,7 @@ function App() {
                   </div>
                   <h3>$<span className="person-total">{tip.perPerson}</span></h3>
               </section>
-              <button onClick={reset} className="reset-button">RESET</button>
+              <button onClick={reset} className={`reset-button ${resetColor ? 'reset' : ''}`}>RESET</button>
           </div>
         </div>
       </main>
@@ -186,9 +194,10 @@ export default App
 // import './App.css';
 
 // function App() {
-//   const [tip, setTip] = useState({ amount: '0.00', perPerson: '0.00' });
 //   const [selectedTip, setSelectedTip] = useState(null);
-//   const [error, setError] = useState({ amount: false, people: false, message: '' });
+//   const [resetColor, setResetColor] = useState(true);
+//   const [tip, setTip] = useState({ amount: '0.00', perPerson: '0.00' });
+//   const [error, setError] = useState({ amountError: false, perPersonError: false, amountErrorText: '', perPersonErrorText: '' });
 
 //   const inputRef = {
 //     bill: useRef(),
@@ -200,37 +209,52 @@ export default App
 //     const billValue = inputRef.bill.current.value.trim();
 //     const peopleValue = inputRef.people.current.value.trim();
 
-//     let validationErrors = { amount: false, people: false, message: '' };
+//     let validationErrors = { amountError: false, perPersonError: false, amountErrorText: '', perPersonErrorText: '' };
 
-//     if (!billValue || billValue <= 0) {
-//       validationErrors = { ...validationErrors, amount: true, message: "Can't be zero" };
+//     if (!billValue || billValue == 0) {
+//       validationErrors.amountError = true;
+//       validationErrors.amountErrorText = "Can't be zero";
+//     } else if (billValue < 0) {
+//       validationErrors.amountError = true;
+//       validationErrors.amountErrorText = "Common 🤣, can't be negative";
 //     }
 
-//     if (!peopleValue || peopleValue <= 0) {
-//       validationErrors = { ...validationErrors, people: true, message: "Can't be zero" };
+//     if (!peopleValue || peopleValue == 0) {
+//       validationErrors.perPersonError = true;
+//       validationErrors.perPersonErrorText = "Can't be zero";
+//     } else if (peopleValue < 0) {
+//       validationErrors.perPersonError = true;
+//       validationErrors.perPersonErrorText = "Negative?? 😅 Common";
 //     }
 
 //     setError(validationErrors);
-//     return !validationErrors.amount && !validationErrors.people;
+//     return !validationErrors.amountError && !validationErrors.perPersonError;
 //   };
 
 //   const tipped = (percentage) => {
+//     setSelectedTip(percentage);
+//     setResetColor(false);
+
+//     if (percentage !== inputRef.customTip.current.value) {
+//       inputRef.customTip.current.value = '';
+//     }
+
 //     if (!validateInput()) return;
 
-//     const billPerPerson = Number(inputRef.bill.current.value) / Number(inputRef.people.current.value);
 //     const tipPercentage = Number(percentage.replace('%', '')) || Number(inputRef.customTip.current.value);
+//     const billPerPerson = Number(inputRef.bill.current.value) / Number(inputRef.people.current.value);
 //     const tipAmount = ((tipPercentage / 100) * billPerPerson).toFixed(2);
 //     const totalAmount = (billPerPerson + Number(tipAmount)).toFixed(2);
 
-//     setSelectedTip(percentage);
 //     setTip({ amount: tipAmount, perPerson: totalAmount });
 //   };
 
 //   const reset = () => {
+//     setResetColor(true);
 //     setSelectedTip(null);
 //     setTip({ amount: '0.00', perPerson: '0.00' });
-//     setError({ amount: false, people: false, message: '' });
-//     Object.values(inputRef).forEach(ref => ref.current.value = '');
+//     setError({ amountError: false, perPersonError: false, amountErrorText: '', perPersonErrorText: '' });
+//     Object.values(inputRef).forEach(ref => (ref.current.value = ''));
 //   };
 
 //   return (
@@ -238,30 +262,36 @@ export default App
 //       <h2 className="split">spli<br />tter</h2>
 //       <div className="container">
 //         <div className="calc">
-//           <form className={`first-form ${error.amount ? 'error' : ''}`}>
+//           <form className={`first-form ${error.amountError ? 'error' : ''}`}>
 //             <label htmlFor="bill">Bill</label>
-//             {error.amount && <p>{error.message}</p>}
+//             {error.amountError && <p>{error.amountErrorText}</p>}
 //             <img src="/icon-dollar.svg" alt="dollar icon" />
-//             <input ref={inputRef.bill} type="number" id="bill" placeholder="0" />
+//             <input onInput={() => setResetColor(false)} ref={inputRef.bill} type="number" id="bill" placeholder="0" />
 //           </form>
 
 //           <section className="second-form">
 //             <h2>Select Tip %</h2>
 //             <div className="tip-button">
-//               {['5%', '10%', '15%', '25%', '50%'].map(input => (
+//               {['5%', '10%', '15%', '25%', '50%'].map((input) => (
 //                 <div key={input} className={input === selectedTip ? 'clicked' : ''} onClick={() => tipped(input)}>
 //                   {input}
 //                 </div>
 //               ))}
-//               <input ref={inputRef.customTip} type="number" placeholder="Custom" onInput={() => tipped()} />
+//               <input
+//                 ref={inputRef.customTip}
+//                 id="custom"
+//                 type="number"
+//                 placeholder="Custom"
+//                 onInput={() => tipped(inputRef.customTip.current.value)}
+//               />
 //             </div>
 //           </section>
 
-//           <form className={`third-form ${error.people ? 'error' : ''}`}>
+//           <form className={`third-form ${error.perPersonError ? 'error' : ''}`}>
 //             <label htmlFor="people">Number of People</label>
-//             {error.people && <p>{error.message}</p>}
+//             {error.perPersonError && <p>{error.perPersonErrorText}</p>}
 //             <img src="/icon-person.svg" alt="person icon" />
-//             <input ref={inputRef.people} type="number" id="people" placeholder="0" />
+//             <input onInput={() => setResetColor(false)} ref={inputRef.people} type="number" id="people" placeholder="0" />
 //           </form>
 //         </div>
 
@@ -271,16 +301,16 @@ export default App
 //               <h2>Tip Amount</h2>
 //               <p>/ Person</p>
 //             </div>
-//             <h3>${tip.amount}</h3>
+//             <h3>$<span className="person-tip-amount">{tip.amount}</span></h3>
 //           </section>
 //           <section>
 //             <div>
 //               <h2>Total</h2>
 //               <p>/ Person</p>
 //             </div>
-//             <h3>${tip.perPerson}</h3>
+//             <h3>$<span className="person-total">{tip.perPerson}</span></h3>
 //           </section>
-//           <button onClick={reset} className="reset-button">RESET</button>
+//           <button onClick={reset} className={`reset-button ${resetColor ? 'reset' : ''}`}>RESET</button>
 //         </div>
 //       </div>
 //     </main>
