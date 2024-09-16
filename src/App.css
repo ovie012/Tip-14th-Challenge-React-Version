@@ -1,0 +1,383 @@
+@font-face {
+  font-family: 'space-mono';
+  src: url(../font/SpaceMono-Regular.ttf) format(truetype),
+       url(../font/SpaceMono-Bold.ttf) format(truetype),
+       url(../font/SpaceMono-BoldItalic.ttf) format(truetype),
+       url(../font/SpaceMono-Italic.ttf) format(truetype);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'space-mono', sans-serif;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: hsl(185, 41%, 84%);
+  width: 100%;
+  height: 100vh;
+}
+
+h2.split {
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  line-height: 25px;
+  font-size: 1rem;
+  font-weight: 900;
+  color: hsl(183, 100%, 15%);
+  margin-bottom: 50px;
+}
+
+.container {
+  width: 47%;
+  height: 55%;
+  max-width: 850px;
+  max-height: 400px;
+  background: hsl(0, 0%, 100%);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.calc {
+  width: 43%;
+  height: 88%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.first-form,
+.third-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.first-form label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: hsl(186, 14%, 43%);
+  margin-bottom: 5px;
+}
+
+.first-form img,
+.third-form img {
+  width: 8px;
+  height: auto;
+  position: absolute;
+  top: 30px;
+  left: 12px;
+}
+
+.first-form input,
+.third-form input {
+  height: 30px;
+  width: 100%;
+  background: hsl(189, 41%, 97%);
+  border: none;
+  outline: none;
+  text-align: right;
+  caret-color: transparent;
+  padding-left: 50px;
+  padding-right: 12px;
+  color: hsl(183, 100%, 15%);
+  font-weight: 900;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.first-form input::placeholder,
+.third-form input::placeholder {
+  color: hsla(183, 100%, 15%, 0.4);
+}
+
+.first-form input:focus,
+.tip-button input:focus,
+.third-form input:focus {
+  outline: 2px solid hsl(172, 67%, 45%);
+}
+
+.first-form.error input,
+.tip-button.error input,
+.third-form.error input {
+  outline: 2px solid hsl(0, 100%, 75%);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.second-form h2,
+.third-form label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: hsl(186, 14%, 43%);
+}
+
+.first-form p,
+.third-form p {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: hsl(0, 100%, 75%);
+  /* display: none; */
+}
+
+.first-form.error p,
+.third-form.error p {
+  display: block;
+}
+
+.second-form h2 { 
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.third-form label {
+  margin-bottom: 5px;
+}
+
+.third-form img {
+  top: 28px;
+}
+
+.tip-button {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.tip-button div {
+  width: 100%;
+  height: 32px;
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+  text-align: center;
+  background: hsl(183, 100%, 15%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.tip-button div:hover {
+  background: hsl(187, 70%, 60%);
+  color: hsl(183, 100%, 15%);
+}
+
+.tip-button div.clicked {
+  background: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+}
+
+
+.tip-button input {
+  width: 100%;
+  height: 32px;
+  border-radius: 5px;
+  background: hsl(189, 41%, 97%);
+  /* caret-color: transparent; */
+  text-align: right;
+  border: none;
+  outline: none;
+  padding-right: 5px;
+  color: hsl(183, 100%, 15%);
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.tip-button input::placeholder {
+  color: hsl(186, 14%, 43%);
+  font-size: 1rem;
+  font-weight: 600;
+  left: 10px;
+  text-align: center;
+}
+
+.total {
+  background: hsl(183, 100%, 15%);
+  width: 43%;
+  height: 88%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.total section {
+  display: flex;
+  justify-content: space-between;
+  margin: 10%;
+}
+
+.total section div h2 {
+  font-size: 0.6rem;
+  color: hsl(185, 41%, 84%);
+  margin-top: 20%;
+  margin-bottom: 2px;
+}
+
+.total section div p {
+  font-size: 0.5rem;
+  color: hsl(184, 14%, 56%);
+}
+
+.total section h3 {
+  font-size: 1.8rem;
+  color: hsl(172, 67%, 45%);
+}
+
+.reset-button {
+  width: 80%;
+  height: 30px;
+  background: hsl(172, 67%, 45%);
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  position: absolute;
+  bottom: 30px;
+  left: 10%;
+  color: hsl(183, 100%, 15%);
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.reset-button:hover {
+  background: hsl(185, 41%, 84%);
+}
+
+.reset-button.reset {
+  opacity: 0.2;
+}
+
+@media only screen and (max-width:850px) {
+  .container {
+      width: 80%;
+  }
+}
+
+@media only screen and (max-width:500px) {
+
+  body {
+      justify-content: space-between;
+  }
+
+  h2.split {
+      margin-top: 10%;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      letter-spacing: 10px;
+      line-height: 35px;
+  }
+
+  .container {
+      width: 100%;
+      height: 85%;
+      max-height: 700px;
+      flex-direction: column;
+      border-radius: 25px 25px 0px 0px;
+  }
+
+  .calc {
+      width: 80%;
+      height: 60%;
+  }
+
+  .tip-button {
+      grid-template-columns: 1fr 1fr;
+  }
+
+  .tip-button div,
+  .tip-button input {
+      height: 50px;
+      border-radius: 7px;
+      font-size: 1.5rem;
+  }
+
+  .tip-button input {
+      font-size: 1.2rem;
+  }
+
+  .tip-button input::placeholder {
+      font-size: 1.5rem;
+  }
+
+  .first-form,
+  .second-form,
+  .third-form {
+      margin-top: 8px;
+      margin-bottom: 13px;
+  }
+
+  .first-form img,
+  .third-form img {
+      top: 39px;
+      width: 12px;
+  }
+
+  .first-form input,
+  .third-form input {
+      height: 45px;
+      font-size: 1.2rem;
+  }
+
+  .first-form label {
+      font-size: 0.9rem;
+  }
+
+  .second-form h2,
+  .third-form label {
+      font-size: 0.8rem;
+  }
+
+  .first-form p,
+  .third-form p {
+      font-size: 0.65rem;
+  }
+
+  .total {
+      width: 85%;
+      height: 35%;
+  }
+
+  .total section {
+      margin: 7.5%;
+  }
+
+  .total section div h2 {
+      font-size: 0.9rem;
+      margin-top: 5%;
+  }
+  
+  .total section div p {
+      font-size: 0.7rem;
+  }
+
+  .reset-button {
+      width: 85%;
+      left: 7.5%;
+      bottom: 9%;
+      margin-top: 30%;
+      height: 45px;
+      font-size: 1.1rem;
+      border-radius: 7px;
+  }
+}
